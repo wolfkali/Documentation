@@ -1,4 +1,4 @@
-#### Vérifier le disque /dev/sdb
+#### Vérifier le disque
 
 Avant de formater, il est important de vérifier que le disque **/dev/sdb** est bien celui que vous voulez formater. Utilisez la commande suivante pour lister les disques et leurs partitions :
 
@@ -8,7 +8,7 @@ sudo lsblk
 
 Cette commande vous permet de vérifier le disque **/dev/sdb** et s'il est bien connecté.
 
-### **Démonter le disque (si nécessaire)**
+#### Démonter le disque
 
 Vous devrez d'abord le démonter avant de pouvoir le formater. Utilisez la commande suivante pour démonter le disque :
 
@@ -18,7 +18,7 @@ sudo umount /dev/sdb*
 
 Cela va démonter toutes les partitions du disque. Si vous avez plusieurs partitions, cette commande les démontera toutes.
 
-#### **Créer une nouvelle table de partition (si nécessaire)**
+#### Créer une nouvelle table de partition**
 
 Si vous voulez repartir de zéro et créer une nouvelle table de partition (ce qui effacera toutes les partitions existantes), utilisez `parted` ou `gdisk` (si vous travaillez avec des partitions GPT).
 
@@ -30,7 +30,7 @@ sudo parted /dev/sdb mklabel gpt
 
 Cela effacera toutes les partitions existantes sur le disque **/dev/sdb**.
 
-#### **Créer une nouvelle partition (si nécessaire)**
+#### Créer une nouvelle partition
 
 Si vous n'avez pas encore de partition sur **/dev/sdb**, vous pouvez en créer une avec `parted` ou `fdisk`.
 
@@ -41,7 +41,7 @@ sudo parted /dev/sdb mkpart primary xfs 0% 100%
 ```
 
 Cela crée une partition unique utilisant tout l'espace disponible.
-#### **Formater la partition en XFS**
+#### Formater la partition en XFS
 
 Une fois la partition créée (par exemple **/dev/sdb1**), vous pouvez la formater avec le système de fichiers XFS en utilisant la commande `mkfs.xfs`.
 
@@ -52,7 +52,7 @@ sudo mkfs.xfs /dev/sdb1
 ```
 
 Cela formate la partition **/dev/sdb1** en **XFS**.
-#### **Monter la partition (si nécessaire)**
+#### Monter la partition
 
 Après avoir formaté le disque, vous pouvez le monter pour y accéder. Pour cela, vous pouvez créer un point de montage (par exemple `/mnt/disque`), puis monter la partition dessus :
 
@@ -68,7 +68,7 @@ Montez la partition **/dev/sdb1** sur ce répertoire :
 sudo mount /dev/sdb1 /mnt/disque
 ```
 
-#### **Ajouter un montage automatique (optionnel)**
+#### Ajouter un montage automatique
 
 Si vous souhaitez que la partition se monte automatiquement au démarrage, vous pouvez l'ajouter au fichier `/etc/fstab`.
 
@@ -85,6 +85,8 @@ Ajoutez la ligne suivante à la fin du fichier (en supposant que vous avez mont�
 ```
 
 Enregistrez et quittez l'éditeur.
+
+## Comparatif Approfondi des Systèmes de Fichiers
 
 | Système de Fichier | Journalisation                                                     | Limite Taille Fichier            | Limite Taille Volume       | Fonctionnalités Clés Détaillées                                                                                                                                                                                                                                                    | Points Forts Techniques                                                                                                                                                                                                                                    | Points Faibles Techniques                                                                                                                                                                                                                                                                                                                                                                 | Plateformes Principales                                                                                   |
 | ------------------ | ------------------------------------------------------------------ | -------------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
